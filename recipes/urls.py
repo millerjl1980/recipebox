@@ -3,8 +3,10 @@ from recipes import views
 
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name="homepage"),
     path('author/<int:author_id>', views.author),
+    path('addrecipe/', views.add_recipe),
+    path('addauthor/', views.add_author),
     path('recipe/<int:recipe_id>', views.recipe)
     # path('admin/', admin.site.urls),
 ]
