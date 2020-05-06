@@ -1,5 +1,8 @@
 <form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
+    <div class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </div>
+        <button type="submit" class="btn btn-primary">Submit!</button>
+    
 </form>
