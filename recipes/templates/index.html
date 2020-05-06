@@ -1,6 +1,10 @@
 <h1>The Recipe Box</h1>
 Are you logged in? {{ request.user.is_authenticated }}
 <p></p>
+<a href="/login">Login</a>
+<p></p>
+Welcome {{ request.user.username }} !
+<p></p>
 <a href="/addauthor">Add an Author</a>
 <p></p>
 <a href="/addrecipe">Add a Recipe</a>
@@ -14,3 +18,6 @@ Are you logged in? {{ request.user.is_authenticated }}
         
     {% endfor %}
 </ul>
+
+
+    <a href="/logout">Logout</a>

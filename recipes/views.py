@@ -51,9 +51,10 @@ def add_recipe(req):
     return render(req, html, {'form': form })
 
 @login_required
+
 def add_author(req):
     html = 'generic_form.html'
-
+    
     if req.method == "POST":
         form = AddAuthorForm(req.POST)
         form.save()
@@ -76,3 +77,7 @@ def loginview(req):
                     )
     form = LoginForm()
     return render(req, 'generic_form.html', {'form': form})
+
+def logoutview(req):
+    logout(req)
+    return HttpResponseRedirect(reverse('homepage'))
