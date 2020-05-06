@@ -1,7 +1,8 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
-
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from recipes.models import Author, Recipe
-from recipes.forms import AddRecipeForm, AddAuthorForm
+from recipes.forms import AddRecipeForm, AddAuthorForm, LoginForm
 
 # Create your views here.
 def index(req):
@@ -28,6 +29,7 @@ def recipe(req, recipe_id):
         'recipe': recipe
     })
 
+@login_required
 def add_recipe(req):
     html = 'generic_form.html'
 
@@ -48,6 +50,7 @@ def add_recipe(req):
 
     return render(req, html, {'form': form })
 
+@login_required
 def add_author(req):
     html = 'generic_form.html'
 
@@ -59,3 +62,17 @@ def add_author(req):
     form = AddAuthorForm()
 
     return render(req, html, {'form': form })
+
+def loginview(req):
+    if req.method == "POST":
+        form = LoginForm(req.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(req, username=data['username'], password=data['password'])
+            if user:
+                login(req, user)
+                return HttpResponseRedirect(
+                    req.GET.get('next', reverse('homepage'))
+                    )
+    form = LoginForm()
+    return render(req, 'generic_form.html', {'form': form})
