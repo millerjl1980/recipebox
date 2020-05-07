@@ -51,7 +51,6 @@ def add_recipe(req):
     return render(req, html, {'form': form })
 
 @login_required
-
 def add_author(req):
     html = 'generic_form.html'
     
@@ -81,3 +80,6 @@ def loginview(req):
 def logoutview(req):
     logout(req)
     return HttpResponseRedirect(reverse('homepage'))
+
+def errorview(req):
+    return render(req, 'error.html')

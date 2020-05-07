@@ -1,6 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
-    "python.pythonPath": "/Users/darlyzabeth/.pyenv/versions/3.8.1/bin/python3.8",
+    "python.pythonPath": "/Users/darlyzabeth/.pyenv/shims/python",
     "python.analysis.cacheFolderPath": "\"python.pythonPath\": \"/path/to/your/venv/bin/python\"",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,

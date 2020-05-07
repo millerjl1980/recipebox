@@ -1,4 +1,4 @@
-<h2>How to Make: {{recipe.title}}</h2>
+{% comment %} <h2>How to Make: {{recipe.title}}</h2>
 <h3>by <a href="/author/{{recipe.author.id}}">{{recipe.author.name}}</a></h3>
 <p>{{ recipe.description }}</p>
 <h4>Time Required: {{ recipe.time_required }}</h4>
@@ -8,4 +8,18 @@
         <p> {{ recipe.instructions }}
         
     
-</ul>     
+</ul>      {% endcomment %}
+
+<div class="card text-center">
+  <div class="card-header">
+    by <a href="/author/{{recipe.author.id}}">{{recipe.author.name}}</a>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">How To Make: {{recipe.title}} </h5>
+    <p class="card-text">{{ recipe.description }}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+  <div class="card-footer text-muted">
+    Time Required: {{ recipe.time_required }}
+  </div>
+</div>
