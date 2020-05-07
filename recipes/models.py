@@ -7,6 +7,7 @@ class Author(models.Model):
     name = models.CharField(max_length=50)
     bio = models.TextField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.name
@@ -24,3 +25,6 @@ class Recipe(models.Model):
         return self.title
     def url(self):
         return f"/recipe/{self.id}"
+    
+
+  

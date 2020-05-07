@@ -1,5 +1,6 @@
 from django import forms
 from recipes.models import Author
+from django.contrib.auth.models import User
 
 class AddRecipeForm(forms.Form):
     title = forms.CharField(max_length=50)
@@ -13,9 +14,16 @@ class AddAuthorForm(forms.ModelForm):
         model = Author
         fields = [
             'name',
-            'bio'
+            'bio',
+            
+            
+            
         ]
 
 class LoginForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+class SignupForm(forms.Form):
     username = forms.CharField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput)

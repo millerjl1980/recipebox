@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from recipes.models import Author, Recipe
 from recipes.forms import AddRecipeForm, AddAuthorForm, LoginForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(req):
@@ -83,3 +84,17 @@ def logoutview(req):
 
 def errorview(req):
     return render(req, 'error.html')
+
+def signupview(req):
+    if req.method == "POST":
+        form = LoginForm(req.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = User.objects.create_user(username=data['username'], password=data['password'])
+            if user:
+                login(req, user)
+                return HttpResponseRedirect(
+                    req.GET.get('next', reverse('homepage'))
+                    )
+    form = LoginForm()
+    return render(req, 'generic_form.html', {'form': form})
