@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, HttpResponseRedirect, get_object_or_404
 
 from recipes.models import Author, Recipe
+from recipes.forms import LoginForm, EditRecipeForm
 
 # Create your views here.
 def index(req):
@@ -26,3 +27,36 @@ def recipe(req, recipe_id):
     return render(req, 'recipe.html', {
         'recipe': recipe
     })
+
+def recipe_edit(request, id):
+    recipe = get_object_or_404(Recipe, pk=id)
+    if request.method == "POST":
+        form = EditRecipeForm(request.POST, instance=recipe)
+        form.save()
+        return HttpResponseRedirect(reverse('recipe', args=(id,)))
+
+    form = EditRecipeForm(instance=recipe)
+    return render(request, 'generic_form.html', {'form': form})
+
+
+def loginview(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(
+                request, username=data['username'], password=data['password']
+                )
+            if user:
+                login(request, user)
+                return HttpResponseRedirect(
+                    request.GET.get('next', reverse('home'))
+                )
+    form = LoginForm()
+    return render(request, 'generic_form.html', {'form': form})
+
+def logoutview(request):
+    logout(request)
+    return HttpResponseRedirect(
+                    request.GET.get('next', reverse('home'))
+                )
