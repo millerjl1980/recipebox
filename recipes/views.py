@@ -1,5 +1,7 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, get_object_or_404
 
+from django.contrib.auth import login, logout, authenticate
+
 from recipes.models import Author, Recipe
 from recipes.forms import LoginForm, EditRecipeForm
 
