@@ -25,9 +25,13 @@ def authors(req):
     })
 
 def recipe(req, recipe_id):
+    is_fav = False
     recipe = Recipe.objects.get(id=recipe_id)
+    if recipe.favorite.filter(id=req.user.id).exists():
+        is_fav = True
     return render(req, 'recipe.html', {
-        'recipe': recipe
+        'recipe': recipe,
+        'is_fav': is_fav,
     })
 
 def recipe_edit(request, id):
@@ -40,6 +44,19 @@ def recipe_edit(request, id):
     form = EditRecipeForm(instance=recipe)
     return render(request, 'generic_form.html', {'form': form})
 
+
+def recipe_fav(request, id):
+    recipe = get_object_or_404(Recipe, pk=id)
+    if recipe.favorite.filter(id=request.user.id).exists():
+        recipe.favorite.remove(request.user)
+    else:
+        recipe.favorite.add(request.user)
+    return HttpResponseRedirect(reverse('recipe', args=(id,)))
+
+def favorite_recipe_list(request):
+    user = request.user
+    fav_recipies = user.favorite.all()
+    return render(request, 'favs_list.html', {'fav_recipies': fav_recipies})
 
 def loginview(request):
     if request.method == "POST":

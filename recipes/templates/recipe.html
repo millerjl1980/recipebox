@@ -1,3 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Recipe Info{% endblock %}
+
+{% block content %}
+
 <h2>How to Make: {{recipe.title}}</h2>
 <h3>by <a href="/author/{{recipe.author.id}}">{{recipe.author.name}}</a></h3>
 <p>{{ recipe.description }}</p>
@@ -9,4 +15,24 @@
         
     
 </ul>     
+
+{% if user.is_authenticated %}
 <a href="{% url 'recipe_edit' recipe.id %}">Edit Recipe</a>
+<br>
+<br>
+<div>
+        {% if is_fav %}
+        <a href="{% url 'recipe_fav' recipe.id %}">
+        <i class="fas fa-bookmark fa-lg"></i>
+        Favorite?</a>
+        {% else %}
+        <a href="{% url 'recipe_fav' recipe.id %}">
+        <i class="far fa-bookmark fa-lg"></i>
+        Favorite?</a>
+        {% endif %}
+
+</div>
+{% endif %}
+<br>
+<a href="{% url 'home' %}">Back Home</a>
+{% endblock %}

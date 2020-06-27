@@ -19,6 +19,8 @@ class Recipe(models.Model):
     description = models.TextField()
     time_required = models.CharField(max_length=30)
     instructions = models.TextField()
+    # https://www.youtube.com/watch?v=1XiJvIuvqhs
+    favorite = models.ManyToManyField(User, related_name='favorite', blank=True)
 
     def __str__(self):
         return self.title

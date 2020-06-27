@@ -8,3 +8,11 @@
     </li>
     {% endfor %}
 </ul>
+{% if user.is_authenticated %}
+     <br>
+     <a href="{% url 'fav_list' %}">
+         My Favorites
+      </a>
+{% endif%}
+<br>
+<a href="{% url 'home' %}">Back Home</a>
